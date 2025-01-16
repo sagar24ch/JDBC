@@ -1,6 +1,6 @@
 package com.coursecube.jdbc;
 
-import java.sql.*;													//use of next() and previous() 
+import java.sql.*;													//Result Set Types	
 
 import com.coursecube.jdbc.util.JDBCUtil;
 
@@ -17,13 +17,17 @@ public class Lab18A {
 			
 			String SQL="select * from mycustomers";
 			
-		    st=con.createStatement();
+		    st=con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY,ResultSet.CLOSE_CURSORS_AT_COMMIT);
 		   
 		    rs=st.executeQuery(SQL);
+		    
+		    System.out.println("ResultSet Type="+st.getResultSetType());
+		    System.out.println("Result Set Updatablity="+st.getResultSetConcurrency());
+		    System.out.println("Result Set Holdablity="+st.getResultSetHoldability());
 			
-			System.out.println("          recors in reverse direction           ");
+			/*System.out.println("          records in forward direction           ");
 			
-			while(rs.previous())
+			while(rs.next())
 			{
 				int cd=rs.getInt(1);
 				String cn=rs.getString(2);
@@ -33,6 +37,7 @@ public class Lab18A {
 				
 				System.out.println(cd+"\t"+cn+"\t"+em+"\t"+ph+"\t"+ct);
 			}
+			*/
 		
 		}catch(Exception ex) {
 			ex.printStackTrace();
